@@ -43,7 +43,7 @@
 
 ۱. بسته نسخه ۳ را از فایل توزیع‌شده همراه پروژه دریافت و استخراج کنید. **در حال حاضر Release رسمی در این مخزن منتشر نشده است.**
 
-۲. روی `Start-Toolkit.cmd` برای رابط گرافیکی یا `Start-CLI.cmd` برای حالت متنی دوبار کلیک کنید.
+۲. روی `Start-CLI.cmd` برای حالت متنی دوبار کلیک کنید. فایل `Start-Toolkit.cmd` فعلاً به CLI منتقل می‌شود؛ رابط گرافیکی نسخه قبلی هنوز منتقل نشده است.
 
 ۳. ابتدا بررسی‌های فقط‌خواندنی را اجرا کنید. عملیات تعمیر را تنها پس از بررسی نتیجه و با تأیید آگاهانه انجام دهید.
 
@@ -75,8 +75,8 @@ powershell.exe -NoProfile -File .\Toolkit.ps1 -SelfTest
 
 ### Quick start
 
-1. Obtain and extract the **v3 distribution ZIP**. A verified GitHub Release is **not yet published**.
-2. Run `Start-Toolkit.cmd` for GUI or `Start-CLI.cmd` for the text interface.
+1. Obtain and extract the **v3 distribution ZIP**. A verified GitHub Release is **not yet published**. Version marker: **0.3.0-preview**; this repository is a CLI-first snapshot, not the full previously distributed v3 ZIP.
+2. Run `Start-CLI.cmd` for the text interface. `Start-Toolkit.cmd` currently falls back to CLI; the original v3 GUI has not been imported.
 3. Start with read-only checks; use repair commands only after reviewing the output and explicitly confirming the action.
 
 **Requirements:** Windows 10/11, Windows PowerShell 5.1. Python is not required to run the toolkit.
@@ -111,10 +111,10 @@ powershell.exe -NoProfile -File .\Toolkit.ps1 -SelfTest
 ## 🗺️ Roadmap
 
 - [x] Windows PowerShell-based toolkit prototype
-- [x] GUI and CLI entry points in the v3 distribution
-- [x] HTML and JSON report formats in the v3 distribution
-- [x] Structural tests in the v3 distribution
-- [ ] Publish and verify full v3 source in this repository
+- [x] CLI entry point published in repository; original v3 ZIP had GUI and CLI
+- [x] HTML report export in repository; JSON existed in the earlier v3 distribution
+- [x] Static tests in repository
+- [ ] Import the original v3 GUI/worker implementation (current repository is a smaller CLI snapshot)
 - [ ] Windows 10/11 GUI integration testing
 - [ ] Full Persian RTL localization and accessibility review
 - [ ] Background workers for every long-running repair
