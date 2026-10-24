@@ -66,18 +66,9 @@ $run.Add_Click({
  $item=$items[$list.SelectedIndex]
  $script:outPath=Join-Path $env:TEMP ("risheh-"+[guid]::NewGuid().ToString('N')+'.out')
  $script:errPath=Join-Path $env:TEMP ("risheh-"+[guid]::NewGuid().ToString('N')+'.err')
- $psi=New-Object Diagnostics.ProcessStartInfo
- $psi.FileName=$item.File;$psi.Arguments=$item.Args
- $psi.UseShellExecute=$false;$psi.CreateNoWindow=$true
- $psi.RedirectStandardOutput=$true;$psi.RedirectStandardError=$true
- # Avoid pipe deadlock by copying streams asynchronously to temporary files.
+
  try{
-  $script:proc=New-Object Diagnostics.Process
-  $script:proc.StartInfo=$psi
-  $script:proc.add_OutputDataReceived({param($sender,$e) if($null -ne $e.Data){[IO.File]::AppendAllText($script:outPath,$e.Data+[Environment]::NewLine)}})
-  $script:proc.add_ErrorDataReceived({param($sender,$e) if($null -ne $e.Data){[IO.File]::AppendAllText($script:errPath,$e.Data+[Environment]::NewLine)}})
-  [void]$script:proc.Start()
-  $script:proc.BeginOutputReadLine();$script:proc.BeginErrorReadLine()
+  $script:proc=Start-Process -FilePath $item.File -ArgumentList $(if($item.Args){$item.Args}else{@()}) -RedirectStandardOutput $script:outPath -RedirectStandardError $script:errPath -NoNewWindow -PassThru
   $script:started=Get-Date;$run.Enabled=$false
   $status.Text='Running '+$item.Name;$timer.Start()
  }catch{$output.Text=$_.Exception.Message;$run.Enabled=$true}
